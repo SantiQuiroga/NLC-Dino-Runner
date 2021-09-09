@@ -1,3 +1,5 @@
-import pygame
+from nlc_dino_runner.components.juego import Juego
 
-print('testing commit')
+if __name__ == '__main__':
+    juego = Juego()  # jugando = False
+    juego.correr()  # jugando = True
