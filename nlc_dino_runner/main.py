@@ -1,5 +1,5 @@
-from nlc_dino_runner.components.juego import Juego
+from nlc_dino_runner.components.game import Game
 
 if __name__ == '__main__':
-    juego = Juego()  # jugando = False
-    juego.correr()  # jugando = True
+    game = Game()  # jugando = False
+    game.run()  # jugando = True
