@@ -5,6 +5,8 @@ from nlc_dino_runner.utils import text_utils
 # from nlc_dino_runner.components.obstacles.cactus import Cactus
 from nlc_dino_runner.components.obstacles.obstaclesManager import ObstaclesManager
 from nlc_dino_runner.utils.constants import TITLE, ICON, SCREEN_WIDTH, SCREEN_HEIGHT, BG, FPS
+
+
 # SMALL_CACTUS, LARGE_CACTUS
 
 
@@ -30,6 +32,8 @@ class Game:
     def run(self):
         self.obstacles_manager.reset_obstacles()
         self.playing = True
+        self.game_speed = 20
+        self.points = 0
         while self.playing:
             self.event()
             self.update()
@@ -113,8 +117,15 @@ class Game:
 
     def print_menu_elements(self):
         half_screen_height = SCREEN_HEIGHT // 2
-        text, text_rect = text_utils.get_centered_message("Press Any Key to Start")
-        self.screen.blit(text, text_rect)
+        if self.death_count == 0:
+            text, text_rect = text_utils.get_centered_message("Press any key to Start")
+            self.screen.blit(text, text_rect)
+        else:
+            text, text_rect = text_utils.get_centered_message("Press any key to Restart")
+            self.screen.blit(text, text_rect)
+
         death_score, death_score_rect = text_utils.get_centered_message("Death count: " + str(self.death_count), height=half_screen_height + 50)
         self.screen.blit(death_score, death_score_rect)
+        score, score_rect = text_utils.get_centered_message("Score: " + str(self.points), height=half_screen_height + 100)
+        self.screen.blit(score, score_rect)
         self.screen.blit(ICON, ((SCREEN_WIDTH // 2) - 40, (SCREEN_HEIGHT // 2) - 150))

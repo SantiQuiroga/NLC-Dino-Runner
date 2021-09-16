@@ -7,7 +7,7 @@ class Obstacles(Sprite):
     def __init__(self, image, obstacle_type):
         self.image = image
         self.obstacle_type = obstacle_type
-        self.rect = self.image[self.obstacle_type].get_rect() # Retorna una tupla (x, y)
+        self.rect = self.image[self.obstacle_type].get_rect()  # Retorna un par (x, y)
         self.rect.x = SCREEN_WIDTH  # 1100
 
     def update(self, game_speed, obstacles_list):
