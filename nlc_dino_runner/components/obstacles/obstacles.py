@@ -1,17 +1,15 @@
 from pygame.sprite import Sprite
-
 from nlc_dino_runner.utils.constants import SCREEN_WIDTH
 
+
 # Clase padre
-
-
 class Obstacles(Sprite):
 
     def __init__(self, image, obstacle_type):
         self.image = image
         self.obstacle_type = obstacle_type
-        self.rect = self.image[self.obstacle_type].get_rect()# retorna una tupla (x,y)
-        self.rect.x = SCREEN_WIDTH  #1100
+        self.rect = self.image[self.obstacle_type].get_rect()  # Retorna una tupla (x,y)
+        self.rect.x = SCREEN_WIDTH  # 1100
 
     def update(self, game_speed, obstacles_list):
         self.rect.x -= game_speed
