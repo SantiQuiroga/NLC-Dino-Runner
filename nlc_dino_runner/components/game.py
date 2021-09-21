@@ -80,7 +80,8 @@ class Game:
             self.game_speed += 1
         score_element, score_element_rect = text_utils.get_score_element(self.points)
         self.screen.blit(score_element, score_element_rect)
-
+        self.player.check_invincibility(self.screen)
+        
     def draw_background(self):
         image_width = BG.get_width()
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
