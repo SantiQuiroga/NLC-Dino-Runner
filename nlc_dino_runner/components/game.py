@@ -1,6 +1,7 @@
 import pygame
 
 from nlc_dino_runner.components.dino import Dino
+from nlc_dino_runner.components.lives.lives_manager import LivesManager
 from nlc_dino_runner.components.power_ups.power_up_manager import PowerUpManager
 from nlc_dino_runner.utils import text_utils
 # from nlc_dino_runner.components.obstacles.cactus import Cactus
@@ -28,9 +29,11 @@ class Game:
         self.points = 0
         self.running = True
         self.death_count = 0
+        self.lives_manager = LivesManager()
 
     def run(self):
         # Game loop: events - update - draw
+        self.lives_manager.restart_lives()
         self.obstacles_manager.reset_obstacles()
         self.power_up_manager.reset_power_ups(self.points)
         self.playing = True
@@ -60,6 +63,8 @@ class Game:
         self.player.draw(self.screen)
         self.obstacles_manager.draw(self.screen)
         self.power_up_manager.draw(self.screen)
+        self.lives_manager.print(self.screen)
+
         pygame.display.update()
         pygame.display.flip()
 
@@ -81,7 +86,7 @@ class Game:
         score_element, score_element_rect = text_utils.get_score_element(self.points)
         self.screen.blit(score_element, score_element_rect)
         self.player.check_invincibility(self.screen)
-        
+
     def draw_background(self):
         image_width = BG.get_width()
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))

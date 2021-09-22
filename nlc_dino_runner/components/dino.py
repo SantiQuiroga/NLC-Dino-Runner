@@ -17,7 +17,7 @@ class Dino(Sprite):
     X_POS = 80
     Y_POS = 310
     Y_POS_DUCK = 340
-    JUMP_VEL = 10
+    JUMP_VEL = 8
 
     def __init__(self):
         self.run_img = {
