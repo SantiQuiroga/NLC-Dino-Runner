@@ -14,10 +14,12 @@ class PowerUpManager:
         self.hammer = Hammer()
         self.hammer_on_screen = False
 
-    def reset_power_ups(self, points):
+    def reset_power_ups(self, points, player):
         self.power_ups = []
         self.points = points
         self.when_appears = random.randint(200, 300) + self.points
+        self.hammer_on_screen = False
+        player.hammer_time_up = 0
 
     def generate_power_ups(self, points):
         self.points = points
@@ -26,29 +28,32 @@ class PowerUpManager:
             if self.when_appears == self.points:
                 print('generating power up')
                 self.when_appears = random.randint(self.when_appears + 200, 500 + self.when_appears)
-                self.power_ups.append(random.choice((Shield(), Hammer())))
+                self.power_ups.append(random.choice([Shield(), Hammer()]))
 
     def update(self, points, game_speed, player, user_input):
         self.generate_power_ups(points)
 
         for power_up in self.power_ups:
             power_up.update(game_speed, self.power_ups)
-            if power_up.type == SHIELD_TYPE and player.dino_rect.colliderect(power_up.rect):
-                player.shield = True
-                player.show_text = True
-                player.type = power_up.type
-                power_up.start_time = pygame.time.get_ticks()
-                time_random = random.randrange(5, 8)
-                player.shield_time_up = power_up.start_time + (time_random * 1000)
-                self.power_ups.remove(power_up)
-            elif power_up.type == HAMMER_TYPE and player.dino_rect.colliderect(power_up.rect):
-                player.hammer = True
-                player.show_text = True
-                player.type = power_up.type
-                power_up.start_time = pygame.time.get_ticks()
-                time_random = random.randrange(5, 8)
-                player.hammer_time_up = power_up.start_time + (time_random * 1000)
-                self.power_ups.remove(power_up)
+            if player.dino_rect.colliderect(power_up.rect):
+                if power_up.type == SHIELD_TYPE:
+                    player.shield = True
+                    player.show_text = True
+                    player.hammer = False
+                    player.type = power_up.type
+                    power_up.start_time = pygame.time.get_ticks()
+                    time_random = random.randrange(5, 8)
+                    player.shield_time_up = power_up.start_time + (time_random * 1000)
+                    self.power_ups.remove(power_up)
+                elif power_up.type == HAMMER_TYPE:
+                    player.hammer = True
+                    player.show_text = True
+                    player.shield = False
+                    player.type = power_up.type
+                    power_up.start_time = pygame.time.get_ticks()
+                    time_random = random.randrange(5, 8)
+                    player.hammer_time_up = power_up.start_time + (time_random * 1000)
+                    self.power_ups.remove(power_up)
 
         if user_input[pygame.K_SPACE] and player.hammer and not self.hammer_on_screen and player.hammer_time_up > 0:
             self.hammer_on_screen = True

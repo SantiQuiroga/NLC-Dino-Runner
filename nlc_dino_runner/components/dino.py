@@ -4,15 +4,15 @@ from nlc_dino_runner.utils.constants import (
     RUNNING,
     DUCKING,
     JUMPING,
-    RUNNING_SHIELD,
-    DUCKING_SHIELD,
-    JUMPING_SHIELD,
-    RUNNING_HAMMER,
-    DUCKING_HAMMER,
-    JUMPING_HAMMER,
-    DEFAULT_TYPE,
     SHIELD_TYPE,
+    RUNNING_SHIELD,
+    JUMPING_SHIELD,
+    DUCKING_SHIELD,
+    DEFAULT_TYPE,
     HAMMER_TYPE,
+    RUNNING_HAMMER,
+    JUMPING_HAMMER,
+    DUCKING_HAMMER
 )
 from nlc_dino_runner.utils.text_utils import get_centered_message
 
@@ -21,24 +21,24 @@ class Dino(Sprite):
     X_POS = 80
     Y_POS = 310
     Y_POS_DUCK = 340
-    JUMP_VEL = 9
+    JUMP_VEL = 8.5
 
     def __init__(self):
         self.run_img = {
-            DEFAULT_TYPE: RUNNING,
-            SHIELD_TYPE: RUNNING_SHIELD,
-            HAMMER_TYPE: RUNNING_HAMMER
-        }
+                        DEFAULT_TYPE: RUNNING,
+                        SHIELD_TYPE: RUNNING_SHIELD,
+                        HAMMER_TYPE: RUNNING_HAMMER
+                        }
         self.jump_img = {
-            DEFAULT_TYPE: JUMPING,
-            SHIELD_TYPE: JUMPING_SHIELD,
-            HAMMER_TYPE: JUMPING_HAMMER
-        }
+                        DEFAULT_TYPE: JUMPING,
+                        SHIELD_TYPE: JUMPING_SHIELD,
+                        HAMMER_TYPE: JUMPING_HAMMER
+                         }
         self.duck_img = {
-            DEFAULT_TYPE: DUCKING,
-            SHIELD_TYPE: DUCKING_SHIELD,
-            HAMMER_TYPE: DUCKING_HAMMER
-        }
+                        DEFAULT_TYPE: DUCKING,
+                        SHIELD_TYPE: DUCKING_SHIELD,
+                        HAMMER_TYPE: DUCKING_HAMMER
+                        }
         self.type = DEFAULT_TYPE
         self.image = self.run_img[self.type][0]
         self.shield = False
@@ -109,8 +109,7 @@ class Dino(Sprite):
 
     def check_time(self, screen):
         if self.shield:
-            time_to_show = round((self.shield_time_up - pygame.time.get_ticks()) / 1000, 2)
-            # 0.24
+            time_to_show = round((self.shield_time_up - pygame.time.get_ticks()) / 1000, 1)
             if time_to_show < 0:
                 self.shield = False
                 if self.type == SHIELD_TYPE:
@@ -118,15 +117,14 @@ class Dino(Sprite):
             else:
                 if self.show_text:
                     text, text_rect = get_centered_message(
-                        f'Shield enable for {time_to_show}',
+                        f'Shield enable for: {time_to_show}',
                         width=500,
                         height=40,
-                        size=20
+                        size=10
                     )
                     screen.blit(text, text_rect)
         elif self.hammer:
-            time_to_show = round((self.hammer_time_up - pygame.time.get_ticks()) / 1000, 2)
-            # 0.24
+            time_to_show = round((self.hammer_time_up - pygame.time.get_ticks()) / 1000, 1)
             if time_to_show < 0:
                 self.hammer = False
                 if self.type == HAMMER_TYPE:

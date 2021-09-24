@@ -32,7 +32,7 @@ class Game:
         # Game loop: events - update - draw
         self.lives_manager.restart_lives()
         self.obstacles_manager.reset_obstacles()
-        self.power_up_manager.reset_power_ups(self.points)
+        self.power_up_manager.reset_power_ups(self.points, self.player)
         self.playing = True
         self.game_speed = 20
         self.points = 0
