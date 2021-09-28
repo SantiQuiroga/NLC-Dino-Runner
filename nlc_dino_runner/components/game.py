@@ -114,7 +114,7 @@ class Game:
         elif self.points == 3000:
             self.layer = 4
         elif self.points == 4000:
-            self.layer = 'How?'
+            self.layer = 5
 
         level_element, level_element_rect = text_utils.get_level_element(self.layer, self.black)
         self.screen.blit(level_element, level_element_rect)
