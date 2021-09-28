@@ -6,15 +6,16 @@ class LivesManager:
     def __init__(self):
         self.number_of_lives = DEFAULT_NUMBER_OF_LIVES
 
-    def reduce_live(self):
+    def reduce_lives(self):
         self.number_of_lives -= 1
 
     def restart_lives(self):
         self.number_of_lives = DEFAULT_NUMBER_OF_LIVES
 
-    def print(self, screen):
-        dinamic_pos_x = 30
+    def print(self, screen, black):
+        variable_pos_x = 30
+
         for i in range(self.number_of_lives):
-            live = Live(dinamic_pos_x)
-            live.draw(screen)
-            dinamic_pos_x += 27
+            live = Live(variable_pos_x)
+            live.draw(screen, black)
+            variable_pos_x += 27

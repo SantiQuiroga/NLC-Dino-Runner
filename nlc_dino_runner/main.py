@@ -1,5 +1,5 @@
 from nlc_dino_runner.components.game import Game
 
 if __name__ == '__main__':
-    game = Game()  # Jugando = False
-    game.execute()  # Jugando = True
+    game = Game()
+    game.execute()
